@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="dashboard-wrapper" th:fragment="customerDashboardData">
+		<div class="container-fluid dashboard-content ">
+			<!-- ============================================================== -->
+			<!-- pageheader  -->
+			<!-- ============================================================== -->
+			<div class="row">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="page-header">
+						<h2 class="pageheader-title">Customer Details</h2>
+						<div class="page-breadcrumb">
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="#"
+										class="breadcrumb-link">Dashboard</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Customers
+									</li>
+									<li class="breadcrumb-item active" aria-current="page">View
+										Customers</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================================================== -->
+			<!-- end pageheader  -->
+			<!-- ============================================================== -->
+			<div class="dashboard-ecommerce">
+				<!-- <div class="container-fluid dashboard-content "> -->
+				<div class="row">
+					<!-- ============================================================== -->
+
+					<!-- ============================================================== -->
+					<!-- DropDown start -->
+					<div class="card-body border-top" align="right">
+						<div class="form-group">
+							<!-- <div class="input-group mb-3">
+										<input type="text" class="form-control">
+										<div class="input-group-append be-addon">
+											<button type="button" data-toggle="dropdown"
+												class="btn btn-secondary dropdown-toggle">Search By</button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item">Email</a><a href="#"
+													class="dropdown-item">User Name</a><a href="#"
+													class="dropdown-item">Mobile</a>
+												<div class="dropdown-divider"></div>												
+											</div>
+										</div>
+									</div> -->
+							<form th:action="@{/search-customers}" method="post">
+								<label>Search:</label> <select name="searchKey">
+									<option value="All">Reset</option>
+									<option value="ByEmail">By Email</option>
+									<option value="ByMobile">By Mobile</option>
+									<option value="ByUserName">By UserName</option>
+								</select> <input type="text" name="searchText" />
+								<button class="btn-primary" type="submit">Submit</button>
+							</form>
+						</div>
+
+						<!-- recent orders  -->
+						<!-- ============================================================== -->
+						<span th:text="${currentPage}"></span>
+						<div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+							<div class="card">
+								<!-- <h5 class="card-header">Recent Orders</h5> -->
+								<div class="card-body p-0">
+									<div class="table-responsive">
+										<table class="table">
+											<thead class="bg-light">
+												<tr class="border-0">
+													<th class="border-0">First Name</th>
+													<th class="border-0">Last Name</th>
+													<th class="border-0">User Name</th>
+													<th class="border-0">Email</th>
+													<th class="border-0">Mobile Number</th>
+													<th class="border-0">type</th>
+													<th class="border-0">Status</th>
+													<th class="border-0">Action</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<div th:if="${message != null}">
+													<tr>
+														<div th:text="${message}"></div>
+													</tr>
+												</div>
+												<div th:unless="${message != null}">
+													<tr th:each="customerDataBean: ${customerData}">
+														<td><p th:text="${{customerDataBean.firstName}}"></p></td>
+														<td><p th:text="${{customerDataBean.lastName}}"></p></td>
+														<td><p th:text="${{customerDataBean.userName}}"></p></td>
+														<td><p th:text="${{customerDataBean.email}}"></p></td>
+														<td><p th:text="${{customerDataBean.mobileNumber}}"></p></td>
+														<td><p th:text="${{customerDataBean.isSelfReg}}"></p></td>
+														<td><p th:text="${{customerDataBean.isSelfReg}}"></p></td>
+														<td>
+															<div>
+																<a th:href="@{'/edit-customer/'+${customerDataBean.id}}">
+																	<span class="glyphicon glyphicon-edit"></span>
+																</a> | <a
+																	th:href="@{'/delete-customer/'+${customerDataBean.id}}">
+																	<span class="glyphicon glyphicon-remove"></span>
+																</a>
+															</div>
+														</td>
+
+													</tr>
+												</div>
+											</tbody>
+										</table>
+
+									</div>
+								</div>
+							</div>
+							<!-- ============================================================== -->
+							<!-- paginations  -->
+							<!-- ============================================================== -->
+							<div class="card-body">
+								<table>
+									<tr>
+										<td>
+											<div class="form-group row">
+												<label class="col-12 col-sm-3 col-form-label text-sm-right">ASC?
+												</label>
+												<div class="col-12 col-sm-8 col-lg-6 pt-1">
+													<div class="switch-button switch-button-yesno">
+													<form th:action="@{/view-customerBoard}">
+														<input type="checkbox" checked="" name="switch19"
+															id="switch19"><span> <label for="switch19"></label></span>
+													</form>
+													</div>
+												</div>
+											</div>
+										</td>
+										<td>
+											<div class="dropdown">
+												<button class="btn btn-primary dropdown-toggle"
+													type="button" data-toggle="dropdown">
+													Sort
+													<!-- <span class="caret"></span> -->
+												</button>
+												<ul class="dropdown-menu">
+													<li><a th:href="@{'/view-customerBoard/email'}">ByEmail</a></li>
+													<li><a th:href="@{'/view-customerBoard/userName'}">ByUserName</a></li>
+													<li><a th:href="@{'/view-customerBoard/mobileNumber'}">ByMobile</a></li>
+												</ul>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<nav aria-label="Page navigation example">
+												<ul class="pagination">
+													<li class="page-item"><a class="page-link"
+														th:href="@{'/view-customerBoard/'+${previousPage}+'/'+${noOfRecPerPage}+'/'+${sortBy}}">Previous</a>
+													</li>
+													<div th:each="page : ${totalNoOfRecords}">
+
+														<div th:if="${page == currentPage}">
+															<li class="page-item active">
+														</div>
+														<div th:unless="${page == currentPage}">
+															<li class="page-item">
+														</div>
+														<a class="page-link"
+															th:href="@{'/view-customerBoard/'+${page}+'/'+${noOfRecPerPage}}">
+															<div th:text="${page}"></div>
+														</a>
+														</li>
+													</div>
+
+													<!-- <li class="page-item active"><a class="page-link "
+													href="#">2</a></li>
+												<li class="page-item"><a class="page-link" href="#">3</a></li> -->
+													<li class="page-item"><a class="page-link"
+														th:href="@{'/view-customerBoard/'+${nextPage}+'/'+${noOfRecPerPage}+'/'+${sortBy}}">Next</a></li>
+												</ul>
+											</nav>
+
+										</td>
+
+										<td>
+											<!-- <div align="right">
+											<form action="@{/view-customerBoard/}">
+												<div>
+													<select id="input-select" name="option">
+														<option>No.Of Rec Per Page</option>
+														<option value="5">5</option>
+														<option value="10">10</option>
+														<option value="20">20</option>
+													</select>
+												</div>
+											</form>
+										</div> -->
+
+											<div class="dropdown">
+												<button class="btn btn-primary dropdown-toggle"
+													type="button" data-toggle="dropdown">
+													No.Of Rec Per Page
+													<!-- <span class="caret"></span> -->
+												</button>
+												<ul class="dropdown-menu">
+													<li><a th:href="@{'/view-customerBoard/1/2/'+${sortBy}}">2</a></li>
+													<li><a th:href="@{'/view-customerBoard/1/10/'+${sortBy}}">10</a></li>
+													<li><a th:href="@{'/view-customerBoard/1/15/'+${sortBy}}">15</a></li>
+												</ul>
+											</div>
+
+										</td>
+									</tr>
+								</table>
+
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

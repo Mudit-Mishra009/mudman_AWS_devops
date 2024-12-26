@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="dashboard-wrapper" th:fragment="editCustomerForm">
+	<div class="container-fluid dashboard-content ">
+		<!-- ============================================================== -->
+		<!-- pageheader  -->
+		<!-- ============================================================== -->
+		<div class="row">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<div class="page-header">
+					<h2 class="pageheader-title">Customer Details</h2>
+					<div class="page-breadcrumb">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"
+									class="breadcrumb-link">Dashboard</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Customers
+									</li>
+									<li class="breadcrumb-item active" aria-current="page">Edit Customers
+									</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ============================================================== -->
+		<!-- end pageheader  -->
+		<!-- ============================================================== -->
+		<!-- <div class="dashboard-ecommerce"> -->
+			<!-- <div class="container-fluid dashboard-content "> -->
+				<!-- <div class="row"> -->
+					<!-- ============================================================== -->
+					<!-- signup form  -->
+	<form class="splash-container" th:object="${customerFormBean}" th:action="@{/save-customer}" method="post">
+		<div class="card">
+			<div class="card-header">
+				<!-- <h3 class="mb-1">Add Customer</h3> -->
+				<p>Please enter Customer information.</p>
+			</div>
+			<div class="card-body">
+				<div class="form-group">
+					<input class="form-control form-control-lg" type="text" 
+							th:field="*{firstName}"
+							th:value="*{firstName}"
+						required="" placeholder="firstName" autocomplete="off">
+				</div>
+				<div class="form-group">
+					<input class="form-control form-control-lg" type="text" 
+					th:field="*{lastName}"
+							th:value="*{lastName}"
+						required="" placeholder="lastName" autocomplete="off">
+				</div>
+				<div class="form-group">
+					<input class="form-control form-control-lg" type="text" 
+					      th:field="*{userName}"
+					      th:value="*{userName}"
+						required="" placeholder="Username" autocomplete="off">
+				</div>
+				<div class="form-group">
+					<input class="form-control form-control-lg" type="email"
+						th:field="*{email}"
+						th:value="*{email}" 
+						required="" placeholder="E-mail" autocomplete="off">
+				</div>
+				<!-- <div class="form-group">
+					<input class="form-control form-control-lg" id="pass1"
+						type="password" 
+						th:field="*{password}"
+						th:value="*{password}" 
+						required="" placeholder="Password">
+				</div> -->
+				<div class="form-group">
+					<input class="form-control form-control-lg" required=""
+					    th:field="*{mobileNumber}"
+					    th:value="*{mobileNumber}"
+						placeholder="Mobile Number">
+				</div>
+				<div class="form-group">
+					<input class="form-control form-control-lg" required=""
+					    type="hidden"
+					    th:field="*{id}"
+					    th:value="*{id}"
+						placeholder="IDr">
+				</div>
+				<div class="form-group pt-2">
+					<button class="btn btn-block btn-primary" type="submit">Update Customer</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
