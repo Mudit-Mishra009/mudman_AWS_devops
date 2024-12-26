@@ -14,7 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>we-shopify-platform</name>
-	<description>We shopify ecommerce platform</description>
+	<description>We shopify platform</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
